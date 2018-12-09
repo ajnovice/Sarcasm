@@ -20,9 +20,9 @@ def sarcasm(file_path, max_features, kernel, max_items):
     logit = SVC(kernel=kernel, gamma='scale')
     pipeline = Pipeline([('features_comment', features_comment), ('logit', logit)])
     pipeline.fit(train_texts, y_train)
-    print("Training Accuracy for SVM without stopwords : ", pipeline.score(train_texts, y_train) * 100)
+    print("Training Accuracy for SVM with stopwords : ", pipeline.score(train_texts, y_train) * 100)
     prediction = pipeline.predict(valid_texts)
-    print("Test Accuracy for SVM without stopwords : ", accuracy_score(y_valid, prediction) * 100)
+    print("Test Accuracy for SVM with stopwords : ", accuracy_score(y_valid, prediction) * 100)
 
 
 if __name__ == '__main__':
