@@ -1,8 +1,8 @@
 import sys
 import scikitplot as skplt
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -16,9 +16,9 @@ df = pd.read_csv(file_path)
 df.dropna(subset=['comment'], inplace=True)
 # print(df.count())
 train_texts, valid_texts, y_train, y_valid = train_test_split(df['comment'], df['label'], random_state=17)
-features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=50000, min_df=2, stop_words='english')
+features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=500000, min_df=2)
 print(features_comment)
-logit = MLPClassifier(solver='lbfgs', alpha=1e-4, hidden_layer_sizes=(10, 5), random_state=17)
+logit = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(10, 5), random_state=17)
 pipeline = Pipeline([('features_comment', features_comment), ('logit', logit)])
 pipeline.fit(train_texts, y_train)
 prediction = pipeline.predict(valid_texts)
@@ -38,7 +38,7 @@ print("Test Accuracy for MLP without stopwords : ", accuracy_score(y_valid, pred
 #     df.dropna(subset=['comment'], inplace=True)
 #     # print(df.count())
 #     train_texts, valid_texts, y_train, y_valid = train_test_split(df['comment'], df['label'], random_state=17)
-#     features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features, stop_words='english')
+#     features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features)
 #     logit = MLPClassifier(solver=solver, alpha=1e-5, hidden_layer_sizes=(10, 5), random_state=17)
 #     pipeline = Pipeline([('features_comment', features_comment), ('logit', logit)])
 #     pipeline.fit(train_texts, y_train)
