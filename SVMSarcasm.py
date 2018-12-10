@@ -10,6 +10,8 @@ from sklearn.svm import SVC
 
 def sarcasm(file_path, max_features, kernel, max_items):
     df = pd.read_csv(file_path)
+    if max_items == -1:
+        max_items = df.shape[0]
     df = df[0:max_items]
     # print(list(df))
     # print(df.count())
