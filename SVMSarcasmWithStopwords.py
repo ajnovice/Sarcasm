@@ -16,7 +16,7 @@ def sarcasm(file_path, max_features, kernel, max_items):
     df.dropna(subset=['comment'], inplace=True)
     # print(df.count())
     train_texts, valid_texts, y_train, y_valid = train_test_split(df['comment'], df['label'], random_state=17)
-    features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features)
+    features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features, stop_words='english')
     logit = SVC(kernel=kernel, gamma='scale')
     pipeline = Pipeline([('features_comment', features_comment), ('logit', logit)])
     pipeline.fit(train_texts, y_train)

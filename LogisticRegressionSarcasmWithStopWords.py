@@ -18,7 +18,7 @@ def sarcasm(file_path, max_features, solver):
     df.dropna(subset=['comment'], inplace=True)
     # print(df.count())
     train_texts, valid_texts, y_train, y_valid = train_test_split(df['comment'], df['label'], random_state=17)
-    features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features)
+    features_comment = TfidfVectorizer(ngram_range=(1, 2), max_features=max_features, stop_words='english')
     logit = LogisticRegression(solver=solver, random_state=17, max_iter=5000)
     pipeline = Pipeline([('features_comment', features_comment), ('logit', logit)])
     pipeline.fit(train_texts, y_train)
